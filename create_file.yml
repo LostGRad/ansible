@@ -15,4 +15,4 @@
     copy:
       dest: "{{file_path}}"
       content: |
-        "{{ content }}"
+        {{ content }}
