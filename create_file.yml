@@ -11,3 +11,9 @@
     file:
       path: "/tmp/ansible_file.txt"
       state: touch
+  - name: Creating a file with content
+    copy:
+      dest: "{{file_path}}"
+      content: |
+        line 01
+        line 02
