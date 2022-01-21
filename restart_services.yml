@@ -3,7 +3,7 @@
   become: yes
   task:
   - name: restart services
-    service: {{item}}
+    service: "{{item}}"
     loop:
       {{services}}
-    when: services == "none"
+    when: {{item}} != "none"
