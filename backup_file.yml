@@ -11,4 +11,5 @@
     copy:
       remote_src: True
       src: "{{file_path}}"
-      dest: "{{file_path}}.bak"  
+      dest: "{{file_path}}.bak"
+      backup: true  
