@@ -2,7 +2,7 @@
   hosts: all
   tasks:
   - name: checking service status
-    command: systemctl status "{{ service }}"
+    command: systemctl status {{ service }}
     register: result
     ignore_errors: yes
   - name: showing report
