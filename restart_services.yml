@@ -1,7 +1,7 @@
 - name: Restart services
   hosts: all
   become: yes
-  task:
+  tasks:
   - name: restart services
     service: "{{item}}"
     loop: "{{services}}"
