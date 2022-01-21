@@ -1,10 +1,12 @@
-- name: status
+- name: checking service status
   hosts: all
   tasks:
-  - name: collect facts about system services
-    service_facts:
-    register: services_state
-
-  - name: Debug
+  - name: checking service status
+    command: systemctl status "{{ item }}"
+    with_items:
+    {{services}}
+    register: result
+    ignore_errors: yes
+  - name: showing report
     debug:
-      var: services_state
+     var: result
