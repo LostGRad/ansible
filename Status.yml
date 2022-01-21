@@ -2,13 +2,7 @@
   hosts: all
   tasks:
   - name: checking service status
-    command: systemctl status "{{ item }}"
-    with_items:
-    - firewalld
-    - httpd
-    - vsftpd
-    - sshd
-    - postfix
+    command: systemctl status "{{ service }}"
     register: result
     ignore_errors: yes
   - name: showing report
