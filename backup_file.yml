@@ -11,6 +11,6 @@
     copy:
       remote_src: True
       src: "{{file_path}}"
-      dest: "{{file_path}}.bak"
+      dest: "{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}-{{file_path}}.bak"
       backup: true
     when:  stat_result.stat.exists  
