@@ -1,9 +1,9 @@
-- name: Create file
+- name: Restart services
   hosts: all
   become: yes
   task:
   - name: restart services
     service: "{{item}}"
     loop:
-      "{{services}}"
+      {{services}}
     when: '{{item}} != "none"'
