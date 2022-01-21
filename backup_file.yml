@@ -10,6 +10,6 @@
   - name: Create .bak of /tmp/ansible_file.txt
     copy:
       dest: "{{file_path}}"
-      content: "{{ 1000 | random }}"
+      content: "{{ 1000 | random }}.bak"
       backup: true
     when:  stat_result.stat.exists  
