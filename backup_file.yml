@@ -1,0 +1,14 @@
+- name: Backup some file
+  hosts: all
+  become: yes
+  tasks:
+  - name: Check that the somefile exists
+    stat:
+      path: "{{file_path}}"
+    register: stat_result
+    
+  - name: Create .bak of /tmp/ansible_file.txt
+    copy:
+      remote_src: True
+      src: "{{file_path}}"
+      dest: "{{file_path}}.bak"  

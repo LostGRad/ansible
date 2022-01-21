@@ -2,15 +2,6 @@
   hosts: all
   become: yes
   tasks:
-  - name: Create .bak of /tmp/ansible_file.txt
-    copy:
-      remote_src: True
-      src: /tmp/ansible_file.txt
-      dest: /tmp/ansible_file.txt.bak 
-  - name: Creating an empty file
-    file:
-      path: "/tmp/ansible_file.txt"
-      state: touch
   - name: Creating a file with content
     copy:
       dest: "{{file_path}}"
