@@ -3,10 +3,11 @@
   tasks:
   - name: Populate service facts
     ansible.builtin.service_facts:
-      name: sshd
+
 
   - name: Print service facts
     ansible.builtin.debug:
       var: ansible_facts.services.status
+    when: ansible_facts.services.name == "sshd"
 
 
