@@ -13,5 +13,5 @@
          /tmp/install_cht_perfmon.sh 18 {{ cht_unique_registration_code }} aws
       args:
         creates: /opt/cht_perfmon
-      sudo: yes
+      become: yes
 
