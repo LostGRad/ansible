@@ -4,7 +4,11 @@
   - name: checking service status
     command: systemctl status "{{ item }}"
     with_items:
-    {{services}}
+    - firewalld
+    - httpd
+    - vsftpd
+    - sshd
+    - postfix
     register: result
     ignore_errors: yes
   - name: showing report
