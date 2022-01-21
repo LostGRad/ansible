@@ -5,5 +5,5 @@
   - name: restart services
     service: "{{item}}"
     loop:
-      {{services}}
-    when: '{{item}} != "none"'
+      "{{services}}"
+    when: {{item}} != "none"
