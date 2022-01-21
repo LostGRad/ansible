@@ -6,11 +6,11 @@
     stat:
       path: "{{file_path}}"
     register: stat_result
-    
+# Для виводу дати в початок імені файла потрібно розділити змінну   {{file_path}} на шлях до файла і ім'я файла
   - name: Create backup of some
     copy:
       remote_src: True
       src: "{{file_path}}"
-      dest: "{{ ansible_date_time.date }}-{{file_path}}.bak"
+      dest: "{{file_path}}-{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}.bak"
       backup: true
     when:  stat_result.stat.exists  
