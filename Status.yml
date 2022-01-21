@@ -8,6 +8,6 @@
   - name: Print service facts
     ansible.builtin.debug:
       var: ansible_facts.services.status
-    when: ansible_facts.services.name == "sshd"
+
 
 
