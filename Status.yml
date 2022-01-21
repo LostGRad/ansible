@@ -1,10 +1,11 @@
 - name: checking service status
   hosts: all
   tasks:
-  - name: checking service status
-    command: systemctl status {{ service }}
-    register: result
-    ignore_errors: yes
-  - name: showing report
-    debug:
-     var: result
+  - name: Populate service facts
+    ansible.builtin.service_facts:
+
+  - name: Print service facts
+    ansible.builtin.debug:
+      var: ansible_facts.services.status
+    when: sshd
+
