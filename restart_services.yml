@@ -6,4 +6,4 @@
     service: "{{item}}"
     loop:
       "{{services}}"
-    when: {{item}} != "none"
+    when: '{{item}} != "none"'
