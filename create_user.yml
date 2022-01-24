@@ -3,26 +3,36 @@
   become: yes
   gather_facts: false
   tasks:
-      - name: Create a login user
-        user:
-          name: "{{ user }}"
-          password: "{{ password }}"
+      - name: Check if user exist
+        command: getent passwd ansible_user1 > /dev/null 1&>1 ; echo $?
+        register: user_exist
+      - name: create new user  
+        block:
+        - name: Create a login user
+          user:
+            name: "{{ user }}"
+            password: "{{ password }}"
+            state: present
 
-          state: present
-
-      - name: Add public key to authorized_keys
-        authorized_key:
-          user: "{{ user }}"
-          state: present
-          key: "{{ add_authorized_key }}"
+        - name: Add public key to authorized_keys
+          authorized_key:
+            user: "{{ user }}"
+            state: present
+            key: "{{ add_authorized_key }}"
       
-      - name: adding existing user '{{ user }}' to group sudo
-        user:
-          name: '{{ user }}'
-          groups: sudo
-          append: yes
-
-
+        - name: adding existing user '{{ user }}' to group sudo
+          user:
+            name: '{{ user }}'
+            groups: sudo
+            append: yes
+          
+        - name: Add {{ user }} to sudoers file
+          ansible.builtin.lineinfile:
+            path: /etc/sudoers
+            regexp: '^{{ user }}'
+            line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
+            validate: 'visudo -cf %s'
+        when: user_exist != "2"
 
 
 
