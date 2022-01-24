@@ -8,7 +8,7 @@
         register: user_exist
       - name: debug
         debug:
-          msg: user_exist
+          msg: {{ user_exist }}
       - name: create new user  
         block:
         - name: Create a login user
