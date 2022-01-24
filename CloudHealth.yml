@@ -3,17 +3,17 @@
   become: yes
   tasks:
 
-    - name: Install wget package (Debian based)
-        action: apt 
-          pkg: 'wget' 
-          state: installed
-        only_if: "'$ansible_pkg_mgr' == 'apt'"
-
-    - name: Install wget package (RedHat based)
-      action: yum 
-        name: 'wget' 
-        state: installed
-      only_if: "'$ansible_pkg_mgr' == 'yum'"
+    - name: Install wget on Debian
+      apt:
+         name: wget
+         state: present
+      when: ansible_distribution == "Debian"
+      
+    - name: Install wget on CentOS
+      yum:
+         name: wget
+         state: present
+      when: ansible_distribution == "CentOS"
 
     - name: Wget CloudHealth agent
       command:
