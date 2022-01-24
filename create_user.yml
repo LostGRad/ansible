@@ -10,8 +10,7 @@
         user:
           name: "{{ user }}"
           password: "{{ password }}"
-          groups:
-            - sudo
+
           state: present
 
       - name: Add public key to authorized_keys
