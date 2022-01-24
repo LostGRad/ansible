@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
       - name: Check if user exist
-        command: getent passwd ansible_user1 > /dev/null 1&>1 ; echo $?
+        command: "getent passwd ansible_user1 > /dev/null 1&>1 ; echo $?"
         register: user_exist
       - name: create new user  
         block:
