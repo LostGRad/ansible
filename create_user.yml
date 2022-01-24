@@ -2,9 +2,6 @@
   hosts: all
   become: yes
   gather_facts: false
-  vars:
-    - user: user1
-    - password: 1
   tasks:
       - name: Create a login user
         user:
@@ -17,7 +14,7 @@
         authorized_key:
           user: "{{ user }}"
           state: present
-          key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+          key: "{{ add_authorized_key }}"
 
 
 
