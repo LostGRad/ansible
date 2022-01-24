@@ -4,11 +4,15 @@
   tasks:
 
     - name: Install wget package (Debian based)
-      action: apt pkg='wget' state=installed
-      only_if: "'$ansible_pkg_mgr' == 'apt'"
+        action: apt 
+          pkg: 'wget' 
+          state: installed
+        only_if: "'$ansible_pkg_mgr' == 'apt'"
 
     - name: Install wget package (RedHat based)
-      action: yum name='wget' state=installed
+      action: yum 
+        name: 'wget' 
+        state: installed
       only_if: "'$ansible_pkg_mgr' == 'yum'"
 
     - name: Wget CloudHealth agent
