@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
       - name: Check if user exist
-        shell: "getent passwd ansible_user1 > /dev/null 1&>1 ; echo $?"
+        shell: "getent passwd {{ user }} > /dev/null 1&>1 ; echo $?"
         register: user_exist
       - name: debug
         debug:
@@ -35,7 +35,7 @@
             regexp: '^{{ user }}'
             line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
             validate: 'visudo -cf %s'
-        when: user_exist != "0"
+        when: user_exist == "2"
 
 
 
