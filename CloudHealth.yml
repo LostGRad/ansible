@@ -1,17 +1,19 @@
 - name: CloudHealth Agent Installation Helper
   hosts: all
+  become: yes
   tasks:
     - name: Install wget
       apt:
          name: wget
          state: present
-      become: yes
 
-    - name: Ensure the agent is installed
+    - name: Wget CloudHealth agent
       command:
-         wget https://s3.amazonaws.com/remote-collector/agent/v18/install_cht_perfmon.sh -O /tmp/install_cht_perfmon.sh &&
-         /tmp/install_cht_perfmon.sh 14 {{ cht_unique_registration_code }} aws
+         wget https://s3.amazonaws.com/remote-collector/agent/v18/install_cht_perfmon.sh -O /tmp/install_cht_perfmon.sh &&  
       args:
         creates: /opt/cht_perfmon
-      become: yes
+    - name: Install the agent
+      command: /tmp/install_cht_perfmon.sh 14 {{ cht_unique_registration_code }} aws
+      args:
+        creates: /opt/cht_perfmon
 
