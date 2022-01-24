@@ -6,6 +6,9 @@
       - name: Check if user exist
         shell: "getent passwd ansible_user1 > /dev/null 1&>1 ; echo $?"
         register: user_exist
+      - name: debug
+        debug:
+          msg: user_exist
       - name: create new user  
         block:
         - name: Create a login user
