@@ -2,10 +2,17 @@
   hosts: all
   become: yes
   tasks:
-    - name: Install wget
+    - name: Install wget on Debian
       apt:
          name: wget
          state: present
+      when: ansible_distribution == "Debian"
+      
+    - name: Install wget on CentOS
+      yum:
+         name: wget
+         state: present
+      when: ansible_distribution == "CentOS"
 
     - name: Wget CloudHealth agent
       command:
