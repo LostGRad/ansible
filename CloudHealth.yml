@@ -17,7 +17,7 @@
       args:
         creates: /opt/cht_perfmon
     - name: Install the agent
-      command: /tmp/install_cht_perfmon.sh 14 {{ cht_unique_registration_code }} aws
+      command: sh /tmp/install_cht_perfmon.sh 14 {{ cht_unique_registration_code }} aws
       args:
         creates: /opt/cht_perfmon
 
