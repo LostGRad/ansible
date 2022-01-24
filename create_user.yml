@@ -15,14 +15,14 @@
           user: "{{ user }}"
           state: present
           key: "{{ add_authorized_key }}"
+      
+      - name: adding existing user '{{ user }}' to group sudo
+        user:
+          name: '{{ user }}'
+          groups: sudo
+          append: yes
 
 
 
 
 
-      - name: Add {{ user }} to sudoers file
-        ansible.builtin.lineinfile:
-          path: /etc/sudoers
-          regexp: '^{{ user }}'
-          line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
-          validate: 'visudo -cf %s'
