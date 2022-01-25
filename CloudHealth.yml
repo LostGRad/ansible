@@ -11,6 +11,11 @@
       
     - name: Install wget on CentOS
       block:
+      - name: Add repo
+        yum_repository:
+          name: from_ansible
+          description: Repo add from ansible
+          baseurl: http://mirror.centos.org/centos/$releasever/os/$basearch/
       - name: Install  epel-release
         yum:
           name:  centos-release-scl
