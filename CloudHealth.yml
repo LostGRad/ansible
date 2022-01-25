@@ -10,9 +10,17 @@
       when: ansible_distribution == "Debian"
       
     - name: Install wget on CentOS
-      yum:
+      block:
+      - name: Install  epel-release
+        yum:
+          name:  epel-release
+          state: present
+      - name: Install wget
+        yum:
          name: wget
          state: present
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
+
+
 
 
