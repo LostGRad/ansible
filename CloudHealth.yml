@@ -15,7 +15,7 @@
         yum_repository:
           name: from_ansible
           description: Repo add from ansible
-          baseurl: https://centos.pkgs.org/7/centos-aarch64/wget-1.14-18.el7_6.1.aarch64.rpm.html
+          baseurl: https://centos.pkgs.org/$releasever/$basearch/
       - name: Install wget
         yum:
          name: wget
