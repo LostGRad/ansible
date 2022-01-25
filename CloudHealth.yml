@@ -11,15 +11,22 @@
       
     - name: Install wget on CentOS
       block:
-      - name: Install  epel-release
-        yum:
-          name:  centos-release-scl
-          state: present
+      - name: Add repo
+        yum_repository:
+          name: from_ansible
+          description: Repo add from ansible
+          baseurl: https://centos.pkgs.org/7/centos-aarch64/wget-1.14-18.el7_6.1.aarch64.rpm.html
       - name: Install wget
         yum:
          name: wget
          state: present
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
+    - name: Ensure the agent is installed
+      command:
+        wget https://s3.amazonaws.com/remote-collector/agent/v14/install_cht_perfmon.sh -O /tmp/install_cht_perfmon.sh &&
+        sh /tmp/install_cht_perfmon.sh 14 {{ cht_unique_registration_code }} aws
+      args:
+        creates: /opt/cht_perfmon
 
 
 
