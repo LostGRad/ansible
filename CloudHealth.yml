@@ -13,15 +13,6 @@
       yum:
          name: wget
          state: present
-      when: ansible_distribution == "CentOS"
+      when: ansible_distribution == "CentOS" && ansible_distribution_major_version = "7" && ansible_pkg_mgr == "yum"
 
-    - name: Wget CloudHealth agent
-      command:
-         wget https://s3.amazonaws.com/remote-collector/agent/v18/install_cht_perfmon.sh -O /tmp/install_cht_perfmon.sh 
-      args:
-        creates: /opt/cht_perfmon
-    - name: Install the agent
-      command: sh /tmp/install_cht_perfmon.sh 14 {{ cht_unique_registration_code }} aws
-      args:
-        creates: /opt/cht_perfmon
 
