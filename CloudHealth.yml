@@ -12,7 +12,7 @@
     - name: Install wget on CentOS
       block:
       - name: Install wget
-        yum:
+        dnf:
          name: wget
          state: present
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
