@@ -21,11 +21,8 @@
         key: nginx
         #"{{ user_name }}"
         fail_key: False
-    - name: debug
-      debug: 
-        var: "{{ansible_facts.getent_passwd.values()}}"
 
-      
+   
     - name: Add user "nginx"  
       user:
         name: nginx
@@ -42,3 +39,9 @@
         owner: nginx
         group: nginx
         mode: 0775 
+        
+    - name: Copy index template
+      template:
+        src: ./index.j2
+        dest: /var/www/{{ ansible_hostname }}/html/intex.html
+        mode: 0644
