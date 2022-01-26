@@ -3,7 +3,7 @@
   become: yes
   gather_facts: false
   tasks:
-      - name: Check if user exist
+      - name: Check if {{ user }}  exist
         shell: "getent passwd {{ user }} > /dev/null 1&>1 ; echo $?"
         register: user_exist
       - name: debug
@@ -11,13 +11,13 @@
           msg: " {{ user_exist }} "
       - name: create new user  
         block:
-        - name: Create a login user
+        - name: Create a login {{ user }} 
           user:
             name: "{{ user }}"
             password: "{{ password }}"
             state: present
 
-        - name: Add public key to authorized_keys
+        - name: Add public key to authorized_keys for {{ user }} 
           authorized_key:
             user: "{{ user }}"
             state: present
@@ -35,7 +35,7 @@
             regexp: '^{{ user }}'
             line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
             validate: 'visudo -cf %s'
-        when: user_exist == "2"
+        when: user_exist.stdout == "2"
 
 
 
