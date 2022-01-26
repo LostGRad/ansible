@@ -15,8 +15,8 @@
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
 
       
-    - name: Check if {{ user }}  exist
-      shell: "getent passwd {{ user }} > /dev/null 1&>1 ; echo $?"
+    - name: Check if nginx exist
+      shell: "getent passwd nginx > /dev/null 1&>1 ; echo $?"
       register: user_exist
       
     - name: Add user "nginx"  
