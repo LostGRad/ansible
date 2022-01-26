@@ -18,7 +18,7 @@
     - name: Check if user exists
       getent:
         database: passwd
-        key: nginx3
+        key: nginx
         #"{{ user_name }}"
         fail_key: False
     - name: debug
@@ -28,10 +28,10 @@
       
     - name: Add user "nginx"  
       user:
-        name: nginx3
+        name: nginx
         shell: /sbin/nologin
         append: yes
-        comment: "Nginx3 web server"
+        comment: "Nginx web server"
         state: present
       when: None in ansible_facts.getent_passwd.values()
        
