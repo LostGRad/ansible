@@ -18,23 +18,23 @@
     - name: Check if user exists
       getent:
         database: passwd
-        key: nginx
+        key: nginx2
         #"{{ user_name }}"
         fail_key: False
     - name: debug
       debug: 
-        var: "{{ansible_facts.getent_passwd}}"
+        var: "{{ansible_facts.getent_passwd.keys()}}"
 
       
     - name: Add user "nginx"  
       user:
-        name: nginx
-        groups: nginx
+        name: nginx2
+        groups: nginx2
         shell: /sbin/nologin
         append: yes
         comment: "Nginx web server"
         state: present
-      when: '"nginx" not in ansible_facts.getent_passwd'     
+      when: "1 == 1"
        
     - name: Create dir with project 
       file:
