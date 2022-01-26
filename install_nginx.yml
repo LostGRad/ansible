@@ -23,7 +23,7 @@
         fail_key: False
     - name: debug
       debug: 
-        var: getent_password
+        var: ansible_facts.getent_password
 
       
     - name: Add user "nginx"  
