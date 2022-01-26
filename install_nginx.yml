@@ -23,7 +23,7 @@
         #fail_key: False
     - name: debug
       debug: 
-        msg: getent_password
+        msg: "{{getent_password}}"
 
       
     - name: Add user "nginx"  
