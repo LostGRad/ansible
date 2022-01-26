@@ -23,7 +23,7 @@
         fail_key: False
     - name: debug
       debug: 
-        msg: "{{ansible_facts.getent_passwd}}"
+        msg: "{{ansible_facts.getent_passwd.nginx}}"
 
       
     - name: Add user "nginx"  
