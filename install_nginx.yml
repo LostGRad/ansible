@@ -23,7 +23,7 @@
         fail_key: False
     - name: debug
       debug: 
-        msg: "{{ansible_facts.getent_passwd.nginx}}"
+        var: "{{ansible_facts.getent_passwd}}"
 
       
     - name: Add user "nginx"  
@@ -34,7 +34,7 @@
         append: yes
         comment: "Nginx web server"
         state: present
-      when: '"null" in ansible_facts.getent_passwd.nginx'     
+      when: '"nginx" not in ansible_facts.getent_passwd'     
        
     - name: Create dir with project 
       file:
