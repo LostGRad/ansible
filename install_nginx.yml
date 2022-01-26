@@ -34,7 +34,7 @@
         append: yes
         comment: "Nginx web server"
         state: present
-      when: "null" in ansible_facts.getent_passwd.nginx     
+      when: '"null" in ansible_facts.getent_passwd.nginx'     
        
     - name: Create dir with project 
       file:
