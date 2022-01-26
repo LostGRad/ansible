@@ -20,7 +20,7 @@
         database: passwd
         key: nginx
         #"{{ user_name }}"
-        #fail_key: False
+        fail_key: False
     - name: debug
       debug: 
         msg: "{{ansible_facts.getent_passwd}}"
@@ -32,9 +32,9 @@
         groups: nginx
         shell: /sbin/nologin
         append: yes
-        comment: "nginx nologin User"
+        comment: "Nginx web server"
         state: present
-      when: user_exist == "2"   
+      when: ansible_facts.getent_passwd == "null"   
        
     - name: Create dir with project 
       file:
