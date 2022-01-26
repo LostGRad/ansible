@@ -36,15 +36,15 @@
       file:
         path: "/var/www/{{ ansible_hostname }}/html"
         state: directory
-        owner: root
-        group: root
-        mode: 0775 
+        owner: nginx
+        group: nginx
+        mode: 0777 
         
     - name: Copy index template
       template:
         src: ./index.j2
         dest: /var/www/{{ ansible_hostname }}/html/intex.html
-        mode: 0644
+        mode: 0777
         
     - name: Copy nginx config for Debian
       block:
