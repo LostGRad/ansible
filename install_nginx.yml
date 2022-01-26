@@ -13,7 +13,21 @@
          name: nginx
          state: present
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
-    
+
+      
+    - name: Check if {{ user }}  exist
+      shell: "getent passwd {{ user }} > /dev/null 1&>1 ; echo $?"
+        register: user_exist
+    - name: Add user "nginx"  
+      user:
+        name: nginx
+        groups: nginx
+        shell: /sbin/nologin
+        append: yes
+        comment: "nginx nologin User"
+        state: present
+      when: user_exist == "2"   
+       
     - name: Create dir with project 
       file:
         path: "/var/www/{{ ansible_hostname }}/html"
