@@ -33,7 +33,7 @@
         append: yes
         comment: "Nginx3 web server"
         state: present
-      when: "'None' in {{ansible_facts.getent_passwd.values()}}"
+      when: 'None' in {{ansible_facts.getent_passwd.values()}}
        
     - name: Create dir with project 
       file:
