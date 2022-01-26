@@ -2,7 +2,7 @@ server {
         listen 80;
         listen [::]:80;
 
-        root /var/www/{{ ansible_hostname }} /html;
+        root /var/www/{{ ansible_hostname }}/html;
         index index.html index.htm index.nginx-debian.html;
 
         server_name {{ ansible_enp0s3.ipv4.address }};
