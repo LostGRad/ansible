@@ -36,8 +36,8 @@
       file:
         path: "/var/www/{{ ansible_hostname }}/html"
         state: directory
-        owner: nginx
-        group: nginx
+        owner: root
+        group: root
         mode: 0775 
         
     - name: Copy index template
