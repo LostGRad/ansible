@@ -18,7 +18,8 @@
     - name: Check if user exists
       getent:
         database: passwd
-        key: "{{ user_name }}"
+        key: nginx
+        #"{{ user_name }}"
         fail_key: False
     - name: debug
       debug: 
