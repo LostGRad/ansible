@@ -45,3 +45,30 @@
         src: ./index.j2
         dest: /var/www/{{ ansible_hostname }}/html/intex.html
         mode: 0644
+        
+    - name: Copy nginx config for Debian
+      block:
+      - name: Copy nginx config
+        template:
+          src: ./nginx.j2
+          dest: /etc/nginx/sites-available/{{ ansible_hostname }}.conf
+          mode: 0644
+        when: ansible_distribution == "Debian"
+      - name: Create symbolic link
+        file:
+          src: "/etc/nginx/sites-available/{{ ansible_hostname }}.conf"
+          dest: "/etc/nginx/sites-enabled/"
+          state: link
+        
+    - name: Copy nginx config for Centos
+      template:
+        src: ./nginx.j2
+        dest: /etc/nginx/conf.d/{{ ansible_hostname }}.conf
+        mode: 0644
+      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
+      
+    - name: Restart service nginx, in all cases
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+      
