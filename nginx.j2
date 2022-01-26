@@ -8,6 +8,9 @@ server {
         server_name {{ ansible_enp0s3.ipv4.address }};
 
         location / {
-                 try_files $uri /index.html index.php;
+                 index  index.php index.html index.htm;
+        }
+        location /somedir {
+               autoindex on;
         }
 }
