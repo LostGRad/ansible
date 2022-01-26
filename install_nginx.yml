@@ -20,10 +20,10 @@
         database: passwd
         key: nginx
         #"{{ user_name }}"
-        fail_key: False
+        #fail_key: False
     - name: debug
       debug: 
-        var: ansible_facts.getent_password
+        msg: getent_password
 
       
     - name: Add user "nginx"  
