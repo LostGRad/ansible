@@ -53,12 +53,13 @@
           src: ./nginx.j2
           dest: /etc/nginx/sites-available/{{ ansible_hostname }}.conf
           mode: 0644
-        when: ansible_distribution == "Debian"
+
       - name: Create symbolic link
         file:
           src: "/etc/nginx/sites-available/{{ ansible_hostname }}.conf"
           dest: "/etc/nginx/sites-enabled/{{ ansible_hostname }}.conf"
           state: link
+      when: ansible_distribution == "Debian"
         
     - name: Copy nginx config for Centos
       template:
