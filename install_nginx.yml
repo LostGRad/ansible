@@ -1,0 +1,15 @@
+- name: Install nginx
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install nginx on Debian
+      apt:
+         name: nginx
+         state: present
+      when: ansible_distribution == "Debian"
+      
+    - name: Install nginx on CentOS
+      yum:
+         name: nginx
+         state: present
+      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
