@@ -17,7 +17,7 @@
          state: present
       when: ansible_pkg_mgr == "yum"
     - name: Ensure the agent is installed
-      command: wget https://s3.amazonaws.com/remote-collector/agent/v24/install_cht_perfmon.sh -O install_cht_perfmon.sh 
+      command: wget https://s3.amazonaws.com/remote-collector/agent/v24/install_cht_perfmon.sh -O /tmp/install_cht_perfmon.sh 
       args:
         creates: /opt/cht_perfmon 
       
