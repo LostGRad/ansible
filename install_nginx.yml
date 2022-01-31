@@ -43,7 +43,7 @@
     - name: Copy index template
       template:
         src: ./index.j2
-        dest: /var/www/{{ ansible_hostname }}/html/intex.html
+        dest: /var/www/{{ ansible_hostname }}/html/index.html
         mode: 0644
         
     - name: Copy nginx config for Debian
