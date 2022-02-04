@@ -47,7 +47,7 @@
           append: yes
           
       - name: Add {{ user }} to sudoers file
-          ansible.builtin.lineinfile:
+        ansible.builtin.lineinfile:
           path: /etc/sudoers
           regexp: '^{{ user }}'
           line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
