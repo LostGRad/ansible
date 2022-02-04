@@ -16,6 +16,7 @@
         name: '{{ user }}'
         shell: /sbin/nologin
         append: yes
+        password_lock: yes
         comment: '{{ description }}'
         state: present
       when: 
@@ -26,6 +27,7 @@
       user:
         name: '{{ user }}'
         append: yes
+        password_lock: yes
         comment: '{{ description }}'
         state: present
       when: 
