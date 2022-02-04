@@ -30,7 +30,7 @@
         state: present
       when: 
         - None in ansible_facts.getent_passwd.values()
-        - {{ user_shell }} == Yes
+        - user_shell  == Yes
         
     - name: Add sudo rules
       block:
