@@ -52,7 +52,9 @@
           regexp: '^{{ user }}'
           line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
           validate: 'visudo -cf %s'
-        when: {{user_exist}} == "2"
-      when: '{{ sudo_access }} == Yes'
+          
+      when:
+        -  None not in ansible_facts.getent_passwd.values() 
+        - '{{ sudo_access }} == Yes'
 
 
