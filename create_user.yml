@@ -20,7 +20,7 @@
         state: present
       when: 
         - None in ansible_facts.getent_passwd.values()
-        - '{{ user_shell }} == No'
+        - {{ user_shell }} == No
 
     - name: Add new user - '{{ user }}'  
       user:
@@ -30,7 +30,7 @@
         state: present
       when: 
         - None in ansible_facts.getent_passwd.values()
-        - '{{ user_shell }} == Yes'
+        - {{ user_shell }} == Yes
         
     - name: Add sudo rules
       block:
@@ -55,6 +55,6 @@
           
       when:
         -  None not in ansible_facts.getent_passwd.values() 
-        - '{{ sudo_access }} == Yes'
+        -  sudo_access  == Yes
 
 
