@@ -3,39 +3,56 @@
   become: yes
   gather_facts: false
   tasks:
-      - name: Check if {{ user }}  exist
-        shell: "getent passwd {{ user }} > /dev/null 1&>1 ; echo $?"
-        register: user_exist
-      - name: debug
-        debug:
-          msg: " {{ user_exist }} "
-      - name: create new user  
-        block:
-        - name: Create a login {{ user }} 
-          user:
-            name: "{{ user }}"
-            password: "{{ password }}"
-            state: present
+    - name: Check if user exists
+      getent:
+        database: passwd
+        key: '{{ user }}'
+        #"{{ user_name }}"
+        fail_key: False
 
-        - name: Add public key to authorized_keys for {{ user }} 
-          authorized_key:
-            user: "{{ user }}"
-            state: present
-            key: "{{ add_authorized_key }}"
+   
+    - name: Add new user - '{{ user }}'  
+      user:
+        name: '{{ user }}'
+        shell: /sbin/nologin
+        append: yes
+        comment: '{{ description }}'
+        state: present
+      when: 
+        - None in ansible_facts.getent_passwd.values()
+        - '{{ user_shell }} == No'
+
+    - name: Add new user - '{{ user }}'  
+      user:
+        name: '{{ user }}'
+        append: yes
+        comment: '{{ description }}'
+        state: present
+      when: 
+        - None in ansible_facts.getent_passwd.values()
+        - '{{ user_shell }} == Yes'
+        
+    - name: Add sudo rules
+      block:
+      - name: Add public key to authorized_keys for {{ user }} 
+        authorized_key:
+          user: "{{ user }}"
+          state: present
+          key: "{{ add_authorized_key }}"
       
-        - name: adding existing user '{{ user }}' to group sudo
-          user:
-            name: '{{ user }}'
-            groups: sudo
-            append: yes
+      - name: adding existing user '{{ user }}' to group sudo
+        user:
+          name: '{{ user }}'
+          groups: sudo
+          append: yes
           
-        - name: Add {{ user }} to sudoers file
+      - name: Add {{ user }} to sudoers file
           ansible.builtin.lineinfile:
-            path: /etc/sudoers
-            regexp: '^{{ user }}'
-            line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
-            validate: 'visudo -cf %s'
+          path: /etc/sudoers
+          regexp: '^{{ user }}'
+          line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
+          validate: 'visudo -cf %s'
         when: {{user_exist}} == "2"
-
+      when: '{{ sudo_access }} == Yes'
 
 
