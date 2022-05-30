@@ -1,9 +1,14 @@
-- name: Install nginx
+- name: Install mysql
   hosts: all
   become: yes
   tasks:
-  - name: Run MYSQL commands
-  command: |
-    mysql -p{{ mysql_root_password }} -ne "{{ item }}"
-  with_items:
-    {{ mysql_root_password }}
+    - name: Install mysql on Debian
+      apt:
+         name: mysql
+         state: present
+      when: ansible_distribution == "Debian"
+  # - name: Run MYSQL commands
+  # command: |
+  #   mysql -p{{ mysql_root_password }} -ne "{{ item }}"
+  # with_items:
+  #   {{ mysql_root_password }}
