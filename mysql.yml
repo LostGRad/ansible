@@ -3,12 +3,16 @@
   become: yes
 
   tasks:
+    - name: Run apt upgrade
+      apt:
+        upgrade: "yes"
+        update_cache: yes
+        cache_valid_time: 432000
     - name: Add MySQL 8 Debian bullseye repository
       apt_repository:
         repo: "deb http://repo.mysql.com/apt/debian bullseye mysql-8.0"
         state: present
         filename: mysql_8_0.list
-        update_cache: true
       when: ansible_distribution == "Debian" and ansible_distribution_major_version == "11"
 
     - name: Install mysql on Debian
