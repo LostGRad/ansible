@@ -12,7 +12,7 @@
       apt_repository:
         repo: deb http://repo.mysql.com/apt/debian/ bullseye mysql-apt-config
         state: present
-        filename: mysql_8_0.list
+        filename: mysql_8_0
         update_cache: no
       when: ansible_distribution == "Debian" and ansible_distribution_major_version == "11"
     - name: Install gnupg
