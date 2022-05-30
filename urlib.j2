@@ -1,0 +1,31 @@
+upstream backend{
+  server 127.0.0.1:5000;
+}
+map $http_upgrade $connection_upgrade {
+  default upgrade;
+  '' close;
+}
+
+server {
+  listen 80;
+  server_name {{ server_name }};
+  gzip off;
+  proxy_max_temp_file_size 0;
+  root /var/www/{{ project_name }}/html;
+  index index.html;
+
+  location   / {
+     try_files $uri $uri/ /index.html;
+  }
+  location /app {
+    proxy_pass http://backend/app;
+  }
+  location  /api {
+    rewrite  ^/(.*)  /$1 break;
+    add_header 'Access-Control-Allow-Origin' '*' always;
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, DELETE, PUT, OPTIONS' always;
+    add_header 'Access-Control-Allow-Headers' 'Authorization,Accept,Origin,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range' always;
+    add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+    proxy_pass http://backend/;
+  }
+}
