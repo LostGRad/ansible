@@ -5,6 +5,8 @@
     - name: Install mysql on Debian
       apt:
          name: mysql
+         update_cache: yes
+         cache_valid_time: 3600
          state: present
       when: ansible_distribution == "Debian"
   # - name: Run MYSQL commands
