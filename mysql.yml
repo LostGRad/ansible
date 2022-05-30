@@ -66,10 +66,12 @@
         update_cache: yes
     - name: Install mysql on Debian
       apt:
-        name:
-          - mysql-apt-config
-          - mysql-utilities
+        name: "{{ item }}"
         state: latest
+        install_recommends: yes
+        force: yes
+      with_items:
+       - mysql-apt-config
       when: ansible_distribution == "Debian" and ansible_distribution_major_version == "11"
   # - name: Run MYSQL commands
   # command: |
