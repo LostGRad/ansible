@@ -48,9 +48,9 @@
             dest: /tmp/mysql_commands.sql
             content: |
               {{ mysql_commands }}
-         - name: Run MYSQL commands
-           command: |
-              mysql -u {{ mysql_user }} -h {{ mysql_host }} -p{{ mysql_root_password }} < /tmp/mysql_commands.sql
+        - name: Run MYSQL commands
+          command: |
+            mysql -u {{ mysql_user }} -h {{ mysql_host }} -p{{ mysql_root_password }} < /tmp/mysql_commands.sql
         - name: Remove file (delete file /tmp/mysql_commands.sql)
           file:
             path: /tmp/mysql_commands.sql
