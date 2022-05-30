@@ -7,69 +7,52 @@
          name: nginx
          state: present
       when: ansible_distribution == "Debian"
-      
+
     - name: Install nginx on CentOS
       yum:
          name: nginx
          state: present
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
 
-      
-    - name: Check if user exists
-      getent:
-        database: passwd
-        key: nginx
-        #"{{ user_name }}"
-        fail_key: False
 
-   
-    - name: Add user "nginx"  
-      user:
-        name: nginx
-        shell: /sbin/nologin
-        append: yes
-        comment: "Nginx web server"
-        state: present
-      when: None in ansible_facts.getent_passwd.values()
-       
-    - name: Create dir with project 
+
+    - name: Create dir with project
       file:
-        path: "/var/www/{{ ansible_hostname }}/html"
+        path: "/var/www/{{ project_name }}/html"
         state: directory
         owner: nginx
         group: nginx
-        mode: 0755 
-        
+        mode: 0755
+
     - name: Copy index template
       template:
         src: ./index.j2
-        dest: /var/www/{{ ansible_hostname }}/html/index.html
+        dest: /var/www/{{ project_name }}/html/index.html
         mode: 0644
-        
+
     - name: Copy nginx config for Debian
       block:
       - name: Copy nginx config
         template:
-          src: ./nginx.j2
-          dest: /etc/nginx/sites-available/{{ ansible_hostname }}.conf
+          src: ./{{ nginx_template }}
+          dest: /etc/nginx/sites-available/{{ project_name }}.conf
           mode: 0644
 
       - name: Create symbolic link
         file:
-          src: "/etc/nginx/sites-available/{{ ansible_hostname }}.conf"
-          dest: "/etc/nginx/sites-enabled/{{ ansible_hostname }}.conf"
+          src: "/etc/nginx/sites-available/{{ project_name }}.conf"
+          dest: "/etc/nginx/sites-enabled/{{ project_name }}.conf"
           state: link
       when: ansible_distribution == "Debian"
-        
+
     - name: Copy nginx config for Centos
       template:
         src: ./nginx.j2
-        dest: /etc/nginx/conf.d/{{ ansible_hostname }}.conf
+        dest: /etc/nginx/conf.d/{{ project_name }}.conf
         mode: 0644
       when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7" and ansible_pkg_mgr == "yum"
-      
+
     - name: Restart service nginx, in all cases
       ansible.builtin.service:
         name: nginx
         state: restarted
-      
