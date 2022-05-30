@@ -1,0 +1,9 @@
+- name: Install nginx
+  hosts: all
+  become: yes
+  tasks:
+  - name: Run MYSQL commands
+  command: |
+    mysql -p{{ mysql_root_password }} -ne "{{ item }}"
+  with_items:
+    {{ mysql_root_password }}
