@@ -46,5 +46,5 @@
         - name: Run MYSQL commands
           command: |
              mysql -u {{ mysql_user }} -h {{ mysql_host }}-p{{ mysql_root_password }} -ne "{{ item }}"
-          with_items: - "{{ mysql_commands.split('\n') }}"
+          with_items: "{{ mysql_commands.split('\n') }}"
       when: ansible_distribution == "Debian" and ansible_distribution_major_version == "11"
