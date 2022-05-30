@@ -38,8 +38,8 @@
             state: latest
             install_recommends: yes
             force: yes
-            with_items:
-             - mysql-server
+          with_items:
+            - mysql-server
         - name: Remove useless packages from the cache
           apt:
             autoclean: yes
