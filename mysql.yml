@@ -12,12 +12,12 @@
           when: ansible_distribution == "Debian" and ansible_distribution_major_version == "11"
         - name: Check if my_package is installed
           command: dpkg-query -W mysql-apt-config
-          register: mysql-apt-config_check_deb
-          failed_when: mysql-apt-config_check_deb.rc > 1
-          changed_when: mysql-apt-config_check_deb.rc == 1
+          register: mysql_apt_config_check_deb
+          failed_when: mysql_apt_config_check_deb.rc > 1
+          changed_when: mysql_apt_config_check_deb.rc == 1
         - name: Download mysql-apt-config_0.8.22-1_all.deb to tmp
           get_url:
             url: "https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb"
             dest: "/tmp"
-          when: mysql-apt-config_check_deb.rc == 1
+          when: mysql_apt_config_check_deb.rc == 1
       when: ansible_distribution == "Debian" and ansible_distribution_major_version == "11"
