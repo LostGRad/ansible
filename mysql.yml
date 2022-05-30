@@ -50,7 +50,6 @@
               {{ mysql_commands }}
         - name: Run MYSQL commands
           shell: |
-            mysql -u {{ mysql_user }} -h {{ mysql_host }} -p{{ mysql_root_password }} < /tmp/mysql_commands.sql
             exit 0
         - name: Remove file (delete file /tmp/mysql_commands.sql)
           file:
