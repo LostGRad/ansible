@@ -43,9 +43,14 @@
         - name: Remove useless packages from the cache
           apt:
             autoclean: yes
-        - name: Run MYSQL commands
-          command: |
-             mysql -u {{ mysql_user }} -h {{ mysql_host }} -p{{ mysql_root_password }} -ne "{{ item }}"
-          with_items: "{{ mysql_commands.split('\n') }}"
-          changed_when: False
+        - name: Creating a file with content
+          copy:
+            dest: /tmp/mysql_commands.sql
+            content: |
+              {{ mysql_commands }}
+        # - name: Run MYSQL commands
+        #   command: |
+        #      mysql -u {{ mysql_user }} -h {{ mysql_host }} -p{{ mysql_root_password }} -ne "{{ item }}"
+        #   with_items: "{{ mysql_commands.split('\n') }}"
+        #   changed_when: False
       when: ansible_distribution == "Debian" and ansible_distribution_major_version == "11"
