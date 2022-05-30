@@ -3,6 +3,14 @@
   become: yes
 
   tasks:
+  - name: mysql | Install MySQL Packages
+    apt:
+      pkg: "{{ item }}"
+      state: latest
+      update_cache: yes
+    with_items:
+      - mysql-server
+      - mysql-client
     - name: Install mysql on Debian
       apt:
         name:
