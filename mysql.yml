@@ -49,7 +49,7 @@
             content: |
               {{ mysql_commands }}
         - name: Run MYSQL commands
-          command: |
+          shell: |
             mysql -u {{ mysql_user }} -h {{ mysql_host }} -p{{ mysql_root_password }} -e "/tmp/mysql_commands.sql"
         - name: Remove file (delete file /tmp/mysql_commands.sql)
           file:
