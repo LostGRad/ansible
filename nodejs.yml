@@ -1,6 +1,5 @@
 - name: Install nodejs and pm2
-- hosts: all
-  gather_facts: yes
+  hosts: all
   become: yes
   vars:
     NODEJS_VERSION: "16"
