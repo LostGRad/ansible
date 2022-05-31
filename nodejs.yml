@@ -4,7 +4,7 @@
   become: yes
   vars:
     NODEJS_VERSION: "16"
-    ansible_distribution_release: "bullseye" 
+    ansible_distribution_release: "bullseye"
   tasks:
     - name: Install the gpg key for nodejs LTS
       apt_key:
@@ -21,3 +21,8 @@
       apt:
         name: nodejs
         state: present
+    - name: Npm install pm2
+      npm:
+        name: pm2
+        global: yes
+        state: latest
