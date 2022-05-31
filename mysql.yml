@@ -47,7 +47,7 @@
           command: |
               mysql -ne "{{ item }}"
           with_items:
-            - ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY {{ mysql_root_password }};
+            - ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY "{{ mysql_root_password }}";
             - FLUSH PRIVILEGES
           when:  isSet_root_pass  == "yes"
         - name: Creating a file with content
