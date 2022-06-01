@@ -1,7 +1,6 @@
 - name: Install nginx
   hosts: all
   become: yes
-  ansible_become_method: sudo
   tasks:
     - name: Install nginx on Debian
       apt:
